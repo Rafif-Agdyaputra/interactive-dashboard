@@ -8,6 +8,7 @@ export interface CartProduct {
   total: number;
   discountPercentage: number;
   discountedPrice: number;
+  thumbnail: string;
 }
 
 export interface Cart {
@@ -27,7 +28,18 @@ export interface CartResponse {
   limit: number;
 }
 
-export const fetchCarts = async (): Promise<CartResponse> => {
-  const response = await axios.get<CartResponse>('https://dummyjson.com/carts');
+export const fetchCarts = async (skip: number, limit: number): Promise<CartResponse> => {
+  const response = await axios.get<CartResponse>(`https://dummyjson.com/carts?skip=${skip}&limit=${limit}`);
   return response.data;
 };
+
+export async function fetchCartById(id: number): Promise<Cart | null> {
+  try {
+    const res = await fetch(`https://dummyjson.com/carts/${id}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    return null;
+  }
+}
