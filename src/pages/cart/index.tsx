@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchCarts, Cart } from "../../../api/carts-api";
 import CartSkeleton from "../../../component/skeleton/CartSkeleton";
 import CardCart from "../../../component/card/CardCart";
+import ButtonLoadMore from "../../../component/button/ButtonLoadMore";
 
 export default function CartsPage() {
   const [carts, setCarts] = useState<Cart[]>([]);
@@ -50,15 +51,7 @@ export default function CartsPage() {
       </div>
 
       {hasMore && (
-        <div className="text-center mt-10">
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition disabled:opacity-50"
-          >
-            {loading ? "Loading..." : "Load More"}
-          </button>
-        </div>
+        <ButtonLoadMore onClick={loadMore} loading={loading} />
       )}
     </div>
   );

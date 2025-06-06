@@ -24,7 +24,7 @@ const CardCart = (cart: Cart) => {
           <div>
             <p className="font-semibold text-gray-800">{firstProduct.title}</p>
             <p className="text-sm text-gray-600">
-              Qty: {firstProduct.quantity} | ${firstProduct.total}
+              Qty: {firstProduct.quantity} | ${firstProduct.total.toLocaleString("en-US", {useGrouping: false,})}
             </p>
           </div>
         </div>

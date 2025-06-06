@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { fetchProducts, Product } from "../../api/products-api";
+import { fetchProducts, Product } from "../../../api/products-api";
 
 interface Props {
   products: Product[];

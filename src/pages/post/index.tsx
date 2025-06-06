@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { fetchMostLikedPost, fetchPosts, Post } from "../../../api/posts-api";
+import { fetchPosts, Post } from "../../../api/posts-api";
 import PostSkeleton from "../../../component/skeleton/PostSkeleton";
-import { GetServerSideProps } from "next";
 import CardLikedPost from "../../../component/card/CardLikedPost";
+import ButtonLoadMore from "../../../component/button/ButtonLoadMore";
+import CardPost from "../../../component/card/CardPost";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -41,45 +42,7 @@ export default function PostsPage() {
 
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
-          <article
-            key={post.id}
-            className="bg-white rounded-xl p-4 shadow hover:shadow-lg transition-all duration-300 flex flex-col"
-          >
-            <h2 className="text-lg font-semibold text-gray-800 mb-2">
-              {post.title}
-            </h2>
-
-            <p className="text-gray-600 text-sm">
-              {post.body.length > 300 ? (
-                <>
-                  {post.body.slice(0, 300)}...
-                  <button
-                    onClick={() => setSelectedPost(post)}
-                    className="text-blue-600 ml-1 hover:underline"
-                  >
-                    Read More
-                  </button>
-                </>
-              ) : (
-                post.body
-              )}
-            </p>
-
-            <div className="mt-3 space-y-1 text-sm text-gray-700">
-              <p>
-                <span className="font-medium text-blue-700">Tags:</span>{" "}
-                {post.tags.join(", ")}
-              </p>
-              <div className="flex gap-4 text-sm">
-                <p className="text-green-700 font-medium">
-                  👍 {post.reactions?.likes}
-                </p>
-                <p className="text-red-600 font-medium">
-                  👎 {post.reactions?.dislikes}
-                </p>
-              </div>
-            </div>
-          </article>
+          <CardPost post={post} onClick={setSelectedPost} />
         ))}
 
         {loading &&
@@ -89,15 +52,7 @@ export default function PostsPage() {
       </section>
 
       {hasMore && (
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={loadMorePosts}
-            disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 hover:bg-blue-700 transition"
-          >
-            {loading ? "Loading..." : "Load More"}
-          </button>
-        </div>
+        <ButtonLoadMore onClick={loadMorePosts} loading={loading} />
       )}
 
       {selectedPost && (

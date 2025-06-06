@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { fetchRecipes, Recipe } from "../../../api/recipes-api";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import ButtonLoadMore from "../../../component/button/ButtonLoadMore";
+import CardRecipe from "../../../component/card/CardRecipe";
 
 export default function RecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -34,37 +35,7 @@ export default function RecipesPage() {
       <h1 className="text-3xl font-bold text-center text-blue-700 mb-10">Delicious Recipes</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all p-4 flex flex-col items-center"
-          >
-            <img
-              src={recipe.image}
-              alt={recipe.name}
-              className="w-full h-48 object-cover rounded-xl mb-4"
-            />
-            <h2 className="text-xl font-semibold text-center text-gray-800 mb-2">
-              {recipe.name}
-            </h2>
-            <div className="text-sm text-gray-600 space-y-1 text-center">
-              <p>🧑‍🍳 Difficulty: {recipe.difficulty}</p>
-              <p>🍽 Servings: {recipe.servings}</p>
-              <p>
-                ⏱️ Time: {recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins
-              </p>
-              <p>🔥 Calories: {recipe.caloriesPerServing} kcal</p>
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2 justify-center">
-              {recipe.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          </div>
+          <CardRecipe recipe={recipe} />
         ))}
 
         {loading &&
@@ -82,14 +53,7 @@ export default function RecipesPage() {
       </div>
 
       {hasMore && (
-        <div className="text-center mt-8">
-          <button
-            onClick={loadMoreRecipes}
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm shadow"
-          >
-            {loading ? "Loading..." : "Load More"}
-          </button>
-        </div>
+        <ButtonLoadMore onClick={loadMoreRecipes} loading={loading} />
       )}
     </div>
   );
