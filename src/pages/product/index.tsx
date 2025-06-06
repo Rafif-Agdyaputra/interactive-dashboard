@@ -36,32 +36,33 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(false);
 
   const [debouncedSearch, setDebouncedSearch] = useState(search);
+  
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(search), 500);
     return () => clearTimeout(handler);
   }, [search]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const skip = (page - 1) * limit;
-        const data: ProductResponse = await fetchProducts(
-          debouncedSearch,
-          limit,
-          skip,
-          sortBy,
-          order
-        );
-        setProducts(data.products);
-        setTotal(data.total);
-      } catch (err) {
-        console.error("Fetch error:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const skip = (page - 1) * limit;
+      const data: ProductResponse = await fetchProducts(
+        debouncedSearch,
+        limit,
+        skip,
+        sortBy,
+        order
+      );
+      setProducts(data.products);
+      setTotal(data.total);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [page, debouncedSearch, sortBy, order]);
 

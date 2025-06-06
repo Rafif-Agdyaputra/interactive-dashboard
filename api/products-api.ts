@@ -31,9 +31,7 @@ export const fetchProducts = async (
   let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`;
 
   if (search.trim() !== "") {
-    url = `https://dummyjson.com/products/search?q=${encodeURIComponent(
-      search
-    )}&limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`;
+    url = `https://dummyjson.com/products/search?q=${encodeURIComponent(search)}&limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`;
   }
 
   const response = await axios.get<ProductResponse>(url);
