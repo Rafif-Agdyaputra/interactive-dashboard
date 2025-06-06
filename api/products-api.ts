@@ -21,7 +21,21 @@ export interface ProductResponse {
   limit: number;
 }
 
-export const fetchProducts = async (): Promise<ProductResponse> => {
-  const response = await axios.get<ProductResponse>('https://dummyjson.com/products');
+export const fetchProducts = async (
+  search = "",
+  limit = 10,
+  skip = 0,
+  sortBy: "price" | "rating" = "price",
+  order: "asc" | "desc" = "asc"
+): Promise<ProductResponse> => {
+  let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`;
+
+  if (search.trim() !== "") {
+    url = `https://dummyjson.com/products/search?q=${encodeURIComponent(
+      search
+    )}&limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`;
+  }
+
+  const response = await axios.get<ProductResponse>(url);
   return response.data;
 };

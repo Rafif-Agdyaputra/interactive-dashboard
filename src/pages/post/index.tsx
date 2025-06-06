@@ -36,7 +36,6 @@ export default function PostsPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-4 animate-fade-in">
       <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-blue-800 mb-2">Posts</h1>
         <CardLikedPost/>
       </header>
 

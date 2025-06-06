@@ -32,9 +32,6 @@ export default function CartsPage() {
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-6">
-      <header className="text-center mb-10">
-        <h1 className="text-4xl font-bold text-blue-900">Cart Overview</h1>
-      </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {loading && carts.length === 0 && (
