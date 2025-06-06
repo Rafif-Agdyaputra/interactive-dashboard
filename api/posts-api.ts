@@ -21,7 +21,10 @@ export interface PostResponse {
   limit: number;
 }
 
-export const fetchPosts = async (): Promise<PostResponse> => {
-  const response = await axios.get<PostResponse>('https://dummyjson.com/posts');
+export const fetchPosts = async (skip: number, limit: number): Promise<PostResponse> => {
+  const response = await axios.get<PostResponse>(
+    `https://dummyjson.com/posts?skip=${skip}&limit=${limit}`
+  );
   return response.data;
 };
+
