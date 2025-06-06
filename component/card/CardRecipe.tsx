@@ -1,10 +1,26 @@
 import { Recipe } from "../../api/recipes-api";
+import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 
 type CardRecipeType = {
-    recipe: Recipe
-}
+  recipe: Recipe;
+};
 
-const CardRecipe = ({recipe}: CardRecipeType) => {
+const StarRating = ({ rating }: { rating: number }) => {
+  const stars = Array.from({ length: 5 }, (_, i) => {
+    const current = i + 1;
+    if (rating >= current)
+      return <FaStar key={i} className="text-yellow-400" />;
+    if (rating >= current - 0.5)
+      return <FaStarHalfAlt key={i} className="text-yellow-400" />;
+    return <FaRegStar key={i} className="text-yellow-400" />;
+  });
+
+  return <div className="flex items-center gap-1">{stars}</div>;
+};
+
+const CardRecipe = ({ recipe }: CardRecipeType) => {
+  const topTags = recipe.tags.slice(0, 3);
+
   return (
     <div
       key={recipe.id}
@@ -24,6 +40,14 @@ const CardRecipe = ({recipe}: CardRecipeType) => {
         <p>⏱️ Time: {recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins</p>
         <p>🔥 Calories: {recipe.caloriesPerServing} kcal</p>
       </div>
+
+      <div className="flex items-center mb-2">
+        <StarRating rating={recipe.rating} />
+        <span className="text-sm text-gray-600 ml-2">
+          ({recipe.reviewCount} reviews)
+        </span>
+      </div>
+
       <div className="mt-4 flex flex-wrap gap-2 justify-center">
         {recipe.tags.slice(0, 3).map((tag) => (
           <span
