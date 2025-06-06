@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { fetchPosts, Post } from "../../../api/posts-api";
+import { fetchMostLikedPost, fetchPosts, Post } from "../../../api/posts-api";
 import PostSkeleton from "../../../component/skeleton/PostSkeleton";
+import { GetServerSideProps } from "next";
+import CardLikedPost from "../../../component/card/CardLikedPost";
 
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -19,8 +21,8 @@ export default function PostsPage() {
       setPosts((prev) => [...prev, ...data.posts]);
       setSkip((prev) => prev + limit);
       if (skip + limit >= data.total) setHasMore(false);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      return error;
     } finally {
       setLoading(false);
     }
@@ -31,11 +33,10 @@ export default function PostsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6 animate-fade-in">
+    <div className="min-h-screen bg-gray-50 p-4 animate-fade-in">
       <header className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-blue-800">
-          Posts
-        </h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-blue-800 mb-2">Posts</h1>
+        <CardLikedPost/>
       </header>
 
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

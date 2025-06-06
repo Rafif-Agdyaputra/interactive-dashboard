@@ -28,3 +28,10 @@ export const fetchPosts = async (skip: number, limit: number): Promise<PostRespo
   return response.data;
 };
 
+export const fetchMostLikedPost = async (): Promise<Post> => {
+  const { posts } = await fetchPosts(0, 200);
+
+  return posts.reduce((mostLiked, post) =>
+    post.reactions.likes > mostLiked.reactions.likes ? post : mostLiked
+  );
+};
