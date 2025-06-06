@@ -34,7 +34,7 @@ export default function PostsPage() {
     <div className="min-h-screen bg-gray-50 p-4 md:p-6 animate-fade-in">
       <header className="mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-blue-800">
-          Post List
+          Posts
         </h1>
       </header>
 

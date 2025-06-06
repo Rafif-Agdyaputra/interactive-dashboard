@@ -26,7 +26,7 @@ export interface RecipeResponse {
   limit: number;
 }
 
-export const fetchRecipes = async (): Promise<RecipeResponse> => {
-  const response = await axios.get<RecipeResponse>('https://dummyjson.com/recipes');
+export const fetchRecipes = async (skip: number, limit: number): Promise<RecipeResponse> => {
+  const response = await axios.get<RecipeResponse>(`https://dummyjson.com/recipes?skip=${skip}&limit=${limit}`);
   return response.data;
 };

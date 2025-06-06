@@ -7,10 +7,10 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navItems = [
-    { label: "Recipes", path: "/recipes" },
-    { label: "Produk", path: "/product" },
+    { label: "Recipe", path: "/recipe" },
+    { label: "Product", path: "/product" },
     { label: "Post", path: "/post" },
-    { label: "Carts", path: "/cart" },
+    { label: "Cart", path: "/cart" },
   ];
 
   return (
