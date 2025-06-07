@@ -26,7 +26,30 @@ export interface RecipeResponse {
   limit: number;
 }
 
-export const fetchRecipes = async (skip: number, limit: number): Promise<RecipeResponse> => {
-  const response = await axios.get<RecipeResponse>(`https://dummyjson.com/recipes?skip=${skip}&limit=${limit}`);
+export const fetchRecipes = async (
+  skip: number,
+  limit: number
+): Promise<RecipeResponse> => {
+  const response = await axios.get<RecipeResponse>(
+    `https://dummyjson.com/recipes?skip=${skip}&limit=${limit}`
+  );
+  return response.data;
+};
+
+export const fetchRecipesByTag = async (
+  tag: string
+): Promise<RecipeResponse> => {
+  const response = await axios.get<RecipeResponse>(
+    `https://dummyjson.com/recipes/tag/${encodeURIComponent(tag)}?skip=0&limit=100`
+  );
+  return response.data;
+};
+
+export const fetchRecipesByMealType = async (
+  mealType: string
+): Promise<RecipeResponse> => {
+  const response = await axios.get<RecipeResponse>(
+    `https://dummyjson.com/recipes/meal-type/${encodeURIComponent(mealType)}?skip=0&limit=100`
+  );
   return response.data;
 };
