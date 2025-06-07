@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { fetchPosts } from "../../api/posts-api";
+import ChartSkeleton from "../skeleton/ChartSkeleton";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
@@ -9,7 +10,7 @@ interface TagCount {
   count: number;
 }
 
-export default function TagAnalysisChart() {
+const TagAnalysisChart = () => {
   const [tagCounts, setTagCounts] = useState<TagCount[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +34,7 @@ export default function TagAnalysisChart() {
 
         setTagCounts(tagCountArray);
       } catch (error) {
-        console.error("Failed to analyze tags:", error);
+        return error;
       } finally {
         setLoading(false);
       }
@@ -53,7 +54,7 @@ export default function TagAnalysisChart() {
       labels: {
         style: {
           colors: "#94A3B8",
-          fontSize: "13px",
+          fontSize: "12px",
         },
       },
     },
@@ -78,7 +79,7 @@ export default function TagAnalysisChart() {
         columnWidth: "45%",
       },
     },
-    colors: ["#1E3A8A"],
+    colors: ["#0ea5e9"],
     grid: {
       borderColor: "#E5E7EB",
       strokeDashArray: 4,
@@ -101,7 +102,7 @@ export default function TagAnalysisChart() {
         POST - Top 5 Most Used Tags
       </h2>
       {loading ? (
-        <p className="text-gray-500">Loading data...</p>
+        <ChartSkeleton/>
       ) : tagCounts.length === 0 ? (
         <p className="text-gray-500">No tags found.</p>
       ) : (
@@ -110,3 +111,5 @@ export default function TagAnalysisChart() {
     </div>
   );
 }
+
+export default TagAnalysisChart;
