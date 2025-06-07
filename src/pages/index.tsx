@@ -1,4 +1,5 @@
 import Card from "../../component/card/CardBasic";
+import CartAnalyticsCharts from "../../component/chart/CartAnalyticsCharts";
 import LikesLineChart from "../../component/chart/LikesLineChart";
 import ProductCategoryChart from "../../component/chart/ProductCategoryChart";
 import ReactionPieChart from "../../component/chart/ReactionPieChart";
@@ -49,9 +50,9 @@ export default function Home() {
 
         <section>
           <h2 className="text-3xl font-bold text-gray-800 mb-6">🛍️ Cart Analytics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <Card>
-              <Placeholder message="BENTAR GW BINGUNG MAU TARO APA :)" />
+              <CartAnalyticsCharts/>
             </Card>
           </div>
         </section>
