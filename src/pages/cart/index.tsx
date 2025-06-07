@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchCarts, Cart } from "../../../api/carts-api";
 import CartSkeleton from "../../../component/skeleton/CartSkeleton";
 import CardCart from "../../../component/card/CardCart";
@@ -11,7 +11,7 @@ export default function CartsPage() {
   const [skip, setSkip] = useState(0);
   const limit = 6;
 
-  const loadMore = async () => {
+  const loadMore = useCallback( async () => {
     if (loading || !hasMore) return;
     setLoading(true);
     try {
@@ -24,11 +24,11 @@ export default function CartsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [hasMore, loading, skip]);
 
   useEffect(() => {
     loadMore();
-  }, []);
+  }, [loadMore]);
 
   return (
     <div className="min-h-screen bg-white p-4 md:p-6">
@@ -47,9 +47,7 @@ export default function CartsPage() {
         ))}
       </div>
 
-      {hasMore && (
-        <ButtonLoadMore onClick={loadMore} loading={loading} />
-      )}
+      {hasMore && <ButtonLoadMore onClick={loadMore} loading={loading} />}
     </div>
   );
 }

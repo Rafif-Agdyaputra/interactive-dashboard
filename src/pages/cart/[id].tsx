@@ -36,8 +36,8 @@ export default function CartDetailPage({ cart }: Props) {
       </header>
 
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
-        {cart.products.map((product) => (
-          <CardProductCart {...product} />
+        {cart.products.map((product, index) => (
+          <CardProductCart key={index} {...product} />
         ))}
       </section>
 

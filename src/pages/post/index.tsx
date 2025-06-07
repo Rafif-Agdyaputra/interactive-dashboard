@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { fetchPosts, Post } from "../../../api/posts-api";
 import PostSkeleton from "../../../component/skeleton/PostSkeleton";
 import CardLikedPost from "../../../component/card/CardLikedPost";
@@ -14,7 +14,7 @@ export default function PostsPage() {
   const [isClosing, setIsClosing] = useState(false);
   const limit = 9;
 
-  const loadMorePosts = async () => {
+  const loadMorePosts = useCallback(async () => {
     if (loading || !hasMore) return;
     setLoading(true);
     try {
@@ -27,21 +27,21 @@ export default function PostsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [hasMore, loading, skip, limit]);
 
   useEffect(() => {
     loadMorePosts();
-  }, []);
+  }, [loadMorePosts]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 animate-fade-in">
       <header className="mb-6">
-        <CardLikedPost/>
+        <CardLikedPost />
       </header>
 
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <CardPost post={post} onClick={setSelectedPost} />
+        {posts.map((post, index) => (
+          <CardPost key={index} post={post} onClick={setSelectedPost} />
         ))}
 
         {loading &&
@@ -50,9 +50,7 @@ export default function PostsPage() {
           ))}
       </section>
 
-      {hasMore && (
-        <ButtonLoadMore onClick={loadMorePosts} loading={loading} />
-      )}
+      {hasMore && <ButtonLoadMore onClick={loadMorePosts} loading={loading} />}
 
       {selectedPost && (
         <div

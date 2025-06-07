@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   fetchRecipes,
   fetchRecipesByTag,
@@ -36,7 +36,7 @@ export default function RecipesPage() {
     }
   };
 
-  const handleFilter = async () => {
+  const handleFilter = useCallback(async () => {
     setLoading(true);
     try {
       let data;
@@ -55,11 +55,11 @@ export default function RecipesPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedTag, selectedMealType]);
 
   useEffect(() => {
     handleFilter();
-  }, [selectedTag, selectedMealType]);
+  }, [handleFilter]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 space-y-6">

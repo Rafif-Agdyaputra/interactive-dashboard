@@ -11,9 +11,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#f1f5f9] py-10 px-4">
       <div className="max-w-7xl mx-auto space-y-14">
-
         <section>
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">📊 Post Analytics</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            📊 Post Analytics
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <Card>
               <TagAnalysisChart />
@@ -28,44 +29,41 @@ export default function Home() {
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">👨‍🍳 Recipes Analytics</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            👨‍🍳 Recipes Analytics
+          </h2>
           <div className="grid grid-cols-1 gap-6">
             <Card>
-              <RecipeCuisineChart/>
+              <RecipeCuisineChart />
             </Card>
           </div>
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">🛒 Product Analytics</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            🛒 Product Analytics
+          </h2>
           <div className="grid grid-cols-2 gap-6">
             <Card>
-              <ProductCategoryChart/>
+              <ProductCategoryChart />
             </Card>
             <Card>
-              <TopRatedProductsChart/>
+              <TopRatedProductsChart />
             </Card>
           </div>
         </section>
 
         <section>
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">🛍️ Cart Analytics</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
+            🛍️ Cart Analytics
+          </h2>
           <div className="grid grid-cols-1 gap-6">
             <Card>
-              <CartAnalyticsCharts/>
+              <CartAnalyticsCharts />
             </Card>
           </div>
         </section>
-
       </div>
-    </div>
-  );
-}
-
-const Placeholder = ({ message }: { message: string }) => {
-  return (
-    <div className="flex items-center justify-center h-48 text-gray-400 text-sm">
-      {message}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { FaStar, FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import {
   fetchProducts,
@@ -36,13 +36,13 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(false);
 
   const [debouncedSearch, setDebouncedSearch] = useState(search);
-  
+
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedSearch(search), 500);
     return () => clearTimeout(handler);
   }, [search]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const skip = (page - 1) * limit;
@@ -60,11 +60,11 @@ export default function ProductPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, debouncedSearch, sortBy, order]);
 
   useEffect(() => {
     fetchData();
-  }, [page, debouncedSearch, sortBy, order]);
+  }, [fetchData]);
 
   const totalPages = useMemo(() => Math.ceil(total / limit), [total, limit]);
 
