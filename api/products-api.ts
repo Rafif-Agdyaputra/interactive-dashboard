@@ -37,3 +37,4 @@ export const fetchProducts = async (
   const response = await axios.get<ProductResponse>(url);
   return response.data;
 };
+
